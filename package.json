@@ -1,0 +1,25 @@
+{
+  "name": "riddle",
+  "displayName": "Riddle",
+  "description": "Adds syntax highlighting and code completion for the Riddle programming language.",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.100.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "riddle",
+      "aliases": ["Riddle", "riddle"],
+      "extensions": [".rid"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "riddle",
+      "scopeName": "source.riddle",
+      "path": "./syntaxes/riddle.tmLanguage.json"
+    }]
+  }
+}
