@@ -1,32 +1,171 @@
 {
-	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
 	"name": "Riddle",
+	"scopeName": "source.riddle",
+	"fileTypes": [
+		"riddle"
+	],
 	"patterns": [
+		{
+			"include": "#comments"
+		},
+		{
+			"include": "#strings"
+		},
+		{
+			"include": "#numbers"
+		},
 		{
 			"include": "#keywords"
 		},
 		{
-			"include": "#strings"
+			"include": "#operators"
+		},
+		{
+			"include": "#punctuation"
+		},
+		{
+			"include": "#identifiers"
 		}
 	],
 	"repository": {
-		"keywords": {
-			"patterns": [{
-				"name": "keyword.control.riddle",
-				"match": "\\b(if|while|for|return)\\b"
-			}]
-		},
-		"strings": {
-			"name": "string.quoted.double.riddle",
-			"begin": "\"",
-			"end": "\"",
+		"comments": {
 			"patterns": [
 				{
-					"name": "constant.character.escape.riddle",
-					"match": "\\\\."
+					"name": "comment.line.double-slash.riddle",
+					"begin": "//",
+					"beginCaptures": {
+						"0": {
+							"name": "punctuation.definition.comment.riddle"
+						}
+					},
+					"end": "$"
+				},
+				{
+					"name": "comment.block.riddle",
+					"begin": "/\\*",
+					"beginCaptures": {
+						"0": {
+							"name": "punctuation.definition.comment.begin.riddle"
+						}
+					},
+					"end": "\\*/",
+					"endCaptures": {
+						"0": {
+							"name": "punctuation.definition.comment.end.riddle"
+						}
+					}
+				}
+			]
+		},
+		"strings": {
+			"patterns": [
+				{
+					"name": "string.quoted.double.riddle",
+					"begin": "\"",
+					"beginCaptures": {
+						"0": {
+							"name": "punctuation.definition.string.begin.riddle"
+						}
+					},
+					"end": "\"",
+					"endCaptures": {
+						"0": {
+							"name": "punctuation.definition.string.end.riddle"
+						}
+					},
+					"patterns": [
+						{
+							"name": "constant.character.escape.riddle",
+							"match": "\\\\."
+						}
+					]
+				},
+				{
+					"name": "string.quoted.single.riddle",
+					"begin": "'",
+					"beginCaptures": {
+						"0": {
+							"name": "punctuation.definition.string.begin.riddle"
+						}
+					},
+					"end": "'",
+					"endCaptures": {
+						"0": {
+							"name": "punctuation.definition.string.end.riddle"
+						}
+					},
+					"patterns": [
+						{
+							"name": "constant.character.escape.riddle",
+							"match": "\\\\."
+						}
+					]
+				}
+			]
+		},
+		"numbers": {
+			"patterns": [
+				{
+					"name": "constant.numeric.hex.riddle",
+					"match": "\\b0x[0-9A-Fa-f]+\\b"
+				},
+				{
+					"name": "constant.numeric.binary.riddle",
+					"match": "\\b0b[01]+\\b"
+				},
+				{
+					"name": "constant.numeric.octal.riddle",
+					"match": "\\b0[0-7]+\\b"
+				},
+				{
+					"name": "constant.numeric.float.riddle",
+					"match": "\\b\\d+\\.\\d+\\b"
+				},
+				{
+					"name": "constant.numeric.decimal.riddle",
+					"match": "\\b\\d+\\b"
+				}
+			]
+		},
+		"keywords": {
+			"patterns": [
+				{
+					"name": "keyword.control.riddle",
+					"match": "\\b(?:var|val|for|while|continue|break|if|else|fun|return|import|package|class|true|false|null|try|catch)\\b"
+				},
+				{
+					"name": "storage.modifier.riddle",
+					"match": "\\b(?:override|static|const|public|protected|private|virtual|operator)\\b"
+				}
+			]
+		},
+		"operators": {
+			"patterns": [
+				{
+					"name": "keyword.operator.riddle",
+					"match": "==|!=|>=|<=|<<=|>>=|<<|>>|\\+\\=|\\-\\=|\\*\\=|\\/\\=|%=|&=|\\|=|\\^=|=|>|<|\\+|\\-|\\*|\\/|%|!|&|\\||\\^|~|\\.|:"
+				}
+			]
+		},
+		"punctuation": {
+			"patterns": [
+				{
+					"name": "punctuation.bracket.riddle",
+					"match": "[\\(\\)\\[\\]\\{\\}]"
+				},
+				{
+					"name": "punctuation.separator.riddle",
+					"match": "[;,\\.]"
+				}
+			]
+		},
+		"identifiers": {
+			"patterns": [
+				{
+					"name": "variable.other.riddle",
+					"match": "\\b[A-Za-z_][A-Za-z0-9_]*\\b"
 				}
 			]
 		}
-	},
-	"scopeName": "source.riddle"
+	}
 }

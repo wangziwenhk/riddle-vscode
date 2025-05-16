@@ -1,3 +1,15 @@
 node_modules
 *.vsix
 .env
+
+# Idea
+.idea/
+
+# Bun
+bun.lock
+
+# Npm
+package-lock.json
+
+# Javascript
+dist/

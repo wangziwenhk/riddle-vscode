@@ -5,8 +5,12 @@
 			"name": "Extension",
 			"type": "extensionHost",
 			"request": "launch",
+			"preLaunchTask": "tsc: build",
 			"args": [
 				"--extensionDevelopmentPath=${workspaceFolder}"
+			],
+			"outFiles": [
+				"dist/**/*.js"
 			]
 		}
 	]
