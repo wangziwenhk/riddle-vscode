@@ -2,17 +2,14 @@
 	"name": "Riddle",
 	"scopeName": "source.riddle",
 	"fileTypes": [
-		"riddle"
+		".rid"
 	],
 	"patterns": [
 		{
 			"include": "#comments"
 		},
 		{
-			"include": "#strings"
-		},
-		{
-			"include": "#numbers"
+			"include": "#literals"
 		},
 		{
 			"include": "#keywords"
@@ -24,6 +21,12 @@
 			"include": "#punctuation"
 		},
 		{
+			"include": "#declarations"
+		},
+		{
+			"include": "#annotations"
+		},
+		{
 			"include": "#identifiers"
 		}
 	],
@@ -31,139 +34,243 @@
 		"comments": {
 			"patterns": [
 				{
-					"name": "comment.line.double-slash.riddle",
-					"begin": "//",
-					"beginCaptures": {
-						"0": {
-							"name": "punctuation.definition.comment.riddle"
-						}
-					},
-					"end": "$"
+					"name": "comment.line",
+					"match": "//.*$"
 				},
 				{
-					"name": "comment.block.riddle",
+					"name": "comment.block",
 					"begin": "/\\*",
-					"beginCaptures": {
-						"0": {
-							"name": "punctuation.definition.comment.begin.riddle"
-						}
-					},
-					"end": "\\*/",
-					"endCaptures": {
-						"0": {
-							"name": "punctuation.definition.comment.end.riddle"
-						}
-					}
+					"end": "\\*/"
 				}
 			]
 		},
-		"strings": {
+		"literals": {
 			"patterns": [
 				{
-					"name": "string.quoted.double.riddle",
+					"name": "string.quoted.double",
 					"begin": "\"",
-					"beginCaptures": {
-						"0": {
-							"name": "punctuation.definition.string.begin.riddle"
-						}
-					},
 					"end": "\"",
-					"endCaptures": {
-						"0": {
-							"name": "punctuation.definition.string.end.riddle"
-						}
-					},
 					"patterns": [
 						{
-							"name": "constant.character.escape.riddle",
-							"match": "\\\\."
+							"name": "constant.character.escape",
+							"match": "\\\\[\\\\\"ntr]"
 						}
 					]
 				},
 				{
-					"name": "string.quoted.single.riddle",
+					"name": "constant.character",
 					"begin": "'",
-					"beginCaptures": {
-						"0": {
-							"name": "punctuation.definition.string.begin.riddle"
-						}
-					},
 					"end": "'",
-					"endCaptures": {
-						"0": {
-							"name": "punctuation.definition.string.end.riddle"
-						}
-					},
 					"patterns": [
 						{
-							"name": "constant.character.escape.riddle",
-							"match": "\\\\."
+							"name": "constant.character.escape",
+							"match": "\\\\[\\\\'ntr]"
 						}
 					]
-				}
-			]
-		},
-		"numbers": {
-			"patterns": [
-				{
-					"name": "constant.numeric.hex.riddle",
-					"match": "\\b0x[0-9A-Fa-f]+\\b"
 				},
 				{
-					"name": "constant.numeric.binary.riddle",
-					"match": "\\b0b[01]+\\b"
+					"name": "constant.numeric.float",
+					"match": "\\b\\d+\\.\\d+"
 				},
 				{
-					"name": "constant.numeric.octal.riddle",
-					"match": "\\b0[0-7]+\\b"
+					"name": "constant.numeric.hex",
+					"match": "0x[0-9A-F]+"
 				},
 				{
-					"name": "constant.numeric.float.riddle",
-					"match": "\\b\\d+\\.\\d+\\b"
+					"name": "constant.numeric.octal",
+					"match": "0[0-7]+"
 				},
 				{
-					"name": "constant.numeric.decimal.riddle",
+					"name": "constant.numeric.binary",
+					"match": "0b[01]+"
+				},
+				{
+					"name": "constant.numeric.integer",
 					"match": "\\b\\d+\\b"
+				},
+				{
+					"name": "constant.language.boolean",
+					"match": "\\b(true|false)\\b"
 				}
 			]
 		},
 		"keywords": {
 			"patterns": [
 				{
-					"name": "keyword.control.riddle",
-					"match": "\\b(?:var|val|for|while|continue|break|if|else|fun|return|import|package|class|true|false|null|try|catch)\\b"
+					"name": "keyword.control",
+					"match": "\\b(var|val|for|while|if|else|return|import|package|class|true|false|null|try|catch|break|continue)\\b"
 				},
 				{
-					"name": "storage.modifier.riddle",
-					"match": "\\b(?:override|static|const|public|protected|private|virtual|operator)\\b"
+					"name": "storage.modifier",
+					"match": "\\b(override|static|const|public|protected|private|extern|virtual|operator)\\b"
 				}
 			]
 		},
 		"operators": {
 			"patterns": [
 				{
-					"name": "keyword.operator.riddle",
-					"match": "==|!=|>=|<=|<<=|>>=|<<|>>|\\+\\=|\\-\\=|\\*\\=|\\/\\=|%=|&=|\\|=|\\^=|=|>|<|\\+|\\-|\\*|\\/|%|!|&|\\||\\^|~|\\.|:"
+					"name": "keyword.operator",
+					"match": "=>|->|::|\\+=|-=|\\*=|/=|%=|<<=|>>=|&=|\\|=|\\^=|==|!=|<=|>=|&&|\\|\\||\\+\\+|--|<<|>>|[\\.:;,<>!~+\\-*/%&|^]"
 				}
 			]
 		},
 		"punctuation": {
 			"patterns": [
 				{
-					"name": "punctuation.bracket.riddle",
-					"match": "[\\(\\)\\[\\]\\{\\}]"
+					"name": "punctuation.section.parens.begin",
+					"match": "\\("
 				},
 				{
-					"name": "punctuation.separator.riddle",
-					"match": "[;,\\.]"
+					"name": "punctuation.section.parens.end",
+					"match": "\\)"
+				},
+				{
+					"name": "punctuation.section.brackets.begin",
+					"match": "\\["
+				},
+				{
+					"name": "punctuation.section.brackets.end",
+					"match": "\\]"
+				},
+				{
+					"name": "punctuation.section.braces.begin",
+					"match": "\\{"
+				},
+				{
+					"name": "punctuation.section.braces.end",
+					"match": "\\}"
+				},
+				{
+					"name": "punctuation.terminator",
+					"match": ";"
+				},
+				{
+					"name": "punctuation.separator",
+					"match": ","
+				},
+				{
+					"name": "punctuation.accessor",
+					"match": "\\."
+				},
+				{
+					"name": "punctuation.decorator",
+					"match": "@"
+				}
+			]
+		},
+		"declarations": {
+			"patterns": [
+				{
+					"name": "meta.function",
+					"begin": "\\b(fun)\\b\\s*",
+					"end": "(?=\\()",
+					"beginCaptures": {
+						"1": {
+							"name": "keyword.declaration.function"
+						}
+					},
+					"patterns": [
+						{
+							"name": "entity.name.function",
+							"match": "\\b\\w+\\b"
+						},
+						{
+							"include": "#modifiers"
+						}
+					]
+				},
+				{
+					"name": "meta.class",
+					"begin": "\\bclass\\b\\s*",
+					"end": "(?=\\{)",
+					"patterns": [
+						{
+							"name": "entity.name.class",
+							"match": "\\b\\w+\\b"
+						},
+						{
+							"include": "#modifiers"
+						}
+					]
+				},
+				{
+					"name": "meta.variable.declaration",
+					"match": "(var|val)\\s+\\w+",
+					"captures": {
+						"1": {
+							"name": "storage.type.variable"
+						},
+						"2": {
+							"name": "variable.other"
+						}
+					}
+				}
+			]
+		},
+		"annotations": {
+			"name": "meta.annotation",
+			"begin": "@\\s*\\w+\\s*\\(",
+			"end": "\\)",
+			"beginCaptures": {
+				"0": {
+					"name": "punctuation.decorator"
+				}
+			},
+			"patterns": [
+				{
+					"include": "#literals"
+				},
+				{
+					"include": "#expressions"
 				}
 			]
 		},
 		"identifiers": {
 			"patterns": [
 				{
-					"name": "variable.other.riddle",
-					"match": "\\b[A-Za-z_][A-Za-z0-9_]*\\b"
+					"name": "variable.other",
+					"match": "\\b\\w+\\b"
+				}
+			]
+		},
+		"expressions": {
+			"patterns": [
+				{
+					"include": "#literals"
+				},
+				{
+					"include": "#operators"
+				},
+				{
+					"include": "#functions"
+				},
+				{
+					"include": "#identifiers"
+				},
+				{
+					"include": "#punctuation"
+				}
+			]
+		},
+		"functions": {
+			"patterns": [
+				{
+					"name": "meta.function.call",
+					"begin": "\\b\\w+\\s*\\(",
+					"end": "\\)",
+					"beginCaptures": {
+						"0": {
+							"name": "entity.name.function"
+						}
+					}
+				}
+			]
+		},
+		"modifiers": {
+			"patterns": [
+				{
+					"name": "storage.modifier",
+					"match": "\\b(public|private|protected|static|override|extern)\\b"
 				}
 			]
 		}
