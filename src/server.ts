@@ -29,18 +29,6 @@ documents.onDidChangeContent(change => {
   const diagnostics: Array<Diagnostic> = [];
   const text = change.document.getText();
 
-  if (text.includes('error')) {
-    diagnostics.push({
-      severity: DiagnosticSeverity.Error,
-      range: {
-        start: { line: 0, character: 0 },
-        end: { line: 0, character: 5 }
-      },
-      message: 'Invalid keyword: "error"',
-      source: 'riddle'
-    });
-  }
-
   connection.sendDiagnostics({ uri: change.document.uri, diagnostics });
 });
 
